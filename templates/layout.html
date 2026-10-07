@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Site Info -->
+    {% if title %}
+    <title>FastAPI Blog - {{ title }}</title>
+    {% else %}
+    <title>FastAPI Blog</title>
+    {% endif %}
+
+    <meta name="description" content="FastAPI Tutorial" />
+    <meta name="author" content="Corey Schafer" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="FastAPI Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:image:alt" content="" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/main.css') }}" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#527c9f" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ url_for('static', path='icons/favicon.ico') }}"  sizes="any" />
+    <link rel="icon" href="{{ url_for('static', path='icons/icon.svg') }}"  type="image/svg+xml" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', path='icons/icon.png') }}"
+    />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="{{ url_for('static', path='site.webmanifest') }}" />
+
+    <!-- Content Security Policy -->
+    <!--
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self' fonts.googleapis.com;
+      font-src fonts.gstatic.com;
+      img-src 'self';
+    "
+  >
+  --></head>
+
+  <body
+    class="min-h-screen flex flex-col bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100"
+  >
+    <!-- =========================
+       Header / Navbar
+  ========================== -->
+    <header>
+      <nav
+        class="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-[#527c9f] dark:border-gray-700"
+      >
+        <div
+          class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        >
+          <!-- Logo -->
+          <a href="#" class="py-4 text-xl font-bold text-white">
+            FastAPI Blog
+          </a>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            type="button"
+            class="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white md:hidden"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+
+          <!-- Desktop Navigation -->
+          <div id="desktop-menu" class="hidden items-center gap-2 md:flex">
+            <!-- Left Navigation -->
+            <div class="flex items-center">
+              <a
+                href="{{ url_for("home") }}"
+                class="rounded-md px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+              >
+                Home
+              </a>
+            </div>
+
+            <!-- Right Navigation -->
+            <div class="ml-4 flex items-center gap-2">
+              <!-- Login -->
+              <a
+                href="#"
+                class="rounded-md border border-white px-4 py-2 text-sm font-medium text-white transition hover:bg-white hover:text-[#527c9f]"
+              >
+                Login
+              </a>
+
+              <!-- Register -->
+              <a
+                href="#"
+                class="rounded-md bg-white px-4 py-2 text-sm font-medium text-[#527c9f] transition hover:bg-gray-100"
+              >
+                Register
+              </a>
+
+              <!-- Theme Dropdown -->
+              <div class="relative ml-2">
+                <button
+                  id="bd-theme"
+                  type="button"
+                  class="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+                  aria-expanded="false"
+                >
+                  <span id="bd-theme-text">🌗 Auto</span>
+
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </button>
+
+                <!-- Theme Menu -->
+                <div
+                  id="theme-menu"
+                  class="absolute right-0 mt-2 hidden w-36 overflow-hidden rounded-md border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800"
+                >
+                  <button
+                    type="button"
+                    data-bs-theme-value="light"
+                    class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                  >
+                    🌝 Light
+                  </button>
+
+                  <button
+                    type="button"
+                    data-bs-theme-value="dark"
+                    class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                  >
+                    🌚 Dark
+                  </button>
+
+                  <button
+                    type="button"
+                    data-bs-theme-value="auto"
+                    class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+                  >
+                    🌗 Auto
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div
+          id="mobile-menu"
+          class="hidden border-t border-white/10 bg-[#527c9f] md:hidden"
+        >
+          <div class="space-y-1 px-4 py-3">
+            <a
+              href="{{ url_for("home") }}"
+              class="block rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/10"
+            >
+              Home
+            </a>
+
+            <a
+              href="#"
+              class="block rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-white/10"
+            >
+              Login
+            </a>
+
+            <a
+              href="#"
+              class="block rounded-md bg-white px-3 py-2 text-sm font-medium text-[#527c9f]"
+            >
+              Register
+            </a>
+
+            <div class="border-t border-white/10 pt-2">
+              <p
+                class="px-3 py-2 text-xs font-semibold uppercase text-white/70"
+              >
+                Theme
+              </p>
+
+              <button
+                type="button"
+                data-bs-theme-value="light"
+                class="block w-full rounded-md px-3 py-2 text-left text-sm text-white hover:bg-white/10"
+              >
+                🌝 Light
+              </button>
+
+              <button
+                type="button"
+                data-bs-theme-value="dark"
+                class="block w-full rounded-md px-3 py-2 text-left text-sm text-white hover:bg-white/10"
+              >
+                🌚 Dark
+              </button>
+
+              <button
+                type="button"
+                data-bs-theme-value="auto"
+                class="block w-full rounded-md px-3 py-2 text-left text-sm text-white hover:bg-white/10"
+              >
+                🌗 Auto
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- =========================
+       Main Content
+  ========================== -->
+    <main
+      role="main"
+      class="mx-auto w-full max-w-7xl flex-1 px-4 pb-10 pt-28 sm:px-6 lg:px-8"
+    >
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
+        <!-- Main Column -->
+        <div class="md:col-span-8">
+          {% block content %} {% endblock content %}
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="md:col-span-4">
+          <div
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+          >
+            <h3 class="mb-2 text-xl font-semibold">Our Sidebar</h3>
+
+            <p class="mb-5 text-sm text-gray-600 dark:text-gray-400">
+              You can put any information here you'd like.
+            </p>
+
+            <ul
+              class="divide-y divide-gray-200 overflow-hidden rounded-md border border-gray-200 dark:divide-gray-700 dark:border-gray-700"
+            >
+              <li class="px-4 py-3 text-sm font-medium">Latest Posts</li>
+
+              <li class="px-4 py-3 text-sm font-medium">Announcements</li>
+
+              <li class="px-4 py-3 text-sm font-medium">Calendars</li>
+
+              <li class="px-4 py-3 text-sm font-medium">etc</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- =========================
+       Footer
+  ========================== -->
+    <footer
+      class="mt-auto border-t border-gray-200 bg-gray-100 py-4 dark:border-gray-800 dark:bg-gray-900"
+    >
+      <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+        <p class="mb-0 text-sm text-gray-600 dark:text-gray-400">
+          © <span id="year"></span> Corey Schafer
+        </p>
+      </div>
+    </footer>
+
+    <!-- =========================
+       Current Year
+  ========================== -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+    <!-- =========================
+       Mobile Navigation
+  ========================== -->
+    <script>
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuButton.addEventListener("click", () => {
+        const isOpen =
+          mobileMenuButton.getAttribute("aria-expanded") === "true";
+
+        mobileMenuButton.setAttribute("aria-expanded", String(!isOpen));
+
+        mobileMenu.classList.toggle("hidden");
+      });
+    </script>
+
+    <!-- =========================
+       Theme Dropdown
+  ========================== -->
+    <script>
+      const themeButton = document.getElementById("bd-theme");
+
+      const themeMenu = document.getElementById("theme-menu");
+
+      themeButton.addEventListener("click", () => {
+        const isOpen = themeButton.getAttribute("aria-expanded") === "true";
+
+        themeButton.setAttribute("aria-expanded", String(!isOpen));
+
+        themeMenu.classList.toggle("hidden");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (
+          !themeButton.contains(event.target) &&
+          !themeMenu.contains(event.target)
+        ) {
+          themeMenu.classList.add("hidden");
+          themeButton.setAttribute("aria-expanded", "false");
+        }
+      });
+    </script>
+
+    <!-- =========================
+       Dark Mode
+  ========================== -->
+    <script>
+      const setTheme = (theme) => {
+        if (theme === "auto") {
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+
+          document.documentElement.classList.toggle("dark", prefersDark);
+        } else {
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        }
+
+        localStorage.setItem("theme", theme);
+
+        const themeText = {
+          light: "🌝 Light",
+          dark: "🌚 Dark",
+          auto: "🌗 Auto",
+        };
+
+        document.getElementById("bd-theme-text").textContent = themeText[theme];
+      };
+
+      /*
+       * Theme selection
+       */
+      document.querySelectorAll("[data-bs-theme-value]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setTheme(button.getAttribute("data-bs-theme-value"));
+
+          themeMenu.classList.add("hidden");
+
+          themeButton.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      /*
+       * Initialize theme
+       */
+      setTheme(localStorage.getItem("theme") || "auto");
+    </script>
+  </body>
+</html>

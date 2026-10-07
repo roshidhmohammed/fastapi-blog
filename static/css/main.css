@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* =========================================================
+   Custom Properties
+   ========================================================= */
+
+:root {
+  --font-heading: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Light Theme */
+  --color-bg-body: #fafafa;
+  --color-bg-content: #ffffff;
+  --color-text-primary: #333333;
+  --color-text-heading: #444444;
+  --color-steel: #527c9f;
+  --color-nav-link: #cbd5db;
+  --color-nav-link-hover: #ffffff;
+  --color-link-hover: #428bca;
+  --color-border: #dddddd;
+  --color-border-light: #e3e3e3;
+
+  /* Sizing */
+  --article-img-size: 4rem;
+  --account-img-size: 7.813rem;
+}
+
+
+/* =========================================================
+   Base Styles
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-primary);
+}
+
+main {
+  padding-top: 5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+}
+
+.navbar-brand {
+  font-family: var(--font-heading);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-link-hover);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+
+.bg-steel {
+  background-color: var(--color-steel);
+}
+
+
+/* =========================================================
+   Content Sections
+   ========================================================= */
+
+.content-section {
+  background-color: var(--color-bg-content);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05);
+
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.content-section:hover {
+  border-color: var(--color-border-light);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+}
+
+
+/* =========================================================
+   Articles
+   ========================================================= */
+
+.article-title {
+  color: var(--color-text-heading);
+
+  transition:
+    color 0.2s ease-in-out;
+}
+
+.article-title:hover,
+.article-title:focus {
+  color: var(--color-link-hover);
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+  font-size: 1.25rem;
+}
+
+.article-img {
+  width: var(--article-img-size);
+  height: var(--article-img-size);
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+
+  border: 1px solid var(--color-border-light);
+
+  box-shadow:
+    0 0 0 2px var(--color-bg-content);
+}
+
+.article-metadata {
+  padding-bottom: 0.063rem;
+
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.article-metadata a {
+  transition: color 0.2s ease-in-out;
+}
+
+.article-metadata a:hover,
+.article-metadata a:focus {
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 1.563rem;
+  height: 1.563rem;
+
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   Account / Profile
+   ========================================================= */
+
+.account-img {
+  width: var(--account-img-size);
+  height: var(--account-img-size);
+
+  object-fit: cover;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.file-input-sm {
+  max-width: 300px;
+}
+
+
+/* =========================================================
+   Custom Buttons
+   ========================================================= */
+
+/* Primary Button */
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #527c9f;
+  border: 1px solid #527c9f;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #466a87;
+  border-color: #3f6179;
+}
+
+.btn-primary:active {
+  background-color: #3f6179;
+  border-color: #3a5b72;
+}
+
+
+/* Outline Primary */
+
+.btn-outline-primary {
+  color: #527c9f;
+  background-color: transparent;
+  border: 1px solid #527c9f;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+  color: #ffffff;
+  background-color: #466a87;
+  border-color: #3f6179;
+}
+
+.btn-outline-primary:active {
+  color: #ffffff;
+  background-color: #3f6179;
+  border-color: #3a5b72;
+}
+
+
+/* Secondary */
+
+.btn-outline-secondary {
+  color: #495057;
+  background-color: transparent;
+  border: 1px solid #6c757d;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+  color: #ffffff;
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.btn-outline-secondary:active {
+  color: #ffffff;
+  background-color: #545b62;
+  border-color: #4e555b;
+}
+
+
+/* Danger */
+
+.btn-danger {
+  color: #ffffff;
+  background-color: #a85b5b;
+  border: 1px solid #a85b5b;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: #924e4e;
+  border-color: #874848;
+}
+
+.btn-danger:active {
+  background-color: #874848;
+  border-color: #7c4242;
+}
+
+
+/* Outline Danger */
+
+.btn-outline-danger {
+  color: #a85b5b;
+  background-color: transparent;
+  border: 1px solid #a85b5b;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-outline-danger:hover {
+  color: #ffffff;
+  background-color: #924e4e;
+  border-color: #874848;
+}
+
+.btn-outline-danger:active {
+  color: #ffffff;
+  background-color: #874848;
+  border-color: #7c4242;
+}
+
+
+/* =========================================================
+   Modal
+   ========================================================= */
+
+.modal-header.bg-success {
+  background-color: #4a7c5d !important;
+}
+
+.modal-header.bg-danger {
+  background-color: #a85b5b !important;
+}
+
+.modal-header.bg-success .modal-title,
+.modal-header.bg-danger .modal-title {
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   Dark Theme
+   ========================================================= */
+
+.dark {
+  --color-bg-body: #1a1a1a;
+  --color-bg-content: #2d2d2d;
+  --color-text-primary: #e0e0e0;
+  --color-text-heading: #f0f0f0;
+  --color-border: #404040;
+  --color-border-light: #4a4a4a;
+  --color-link-hover: #8aadc8;
+}
+
+
+/* Dark Content Sections */
+
+.dark .content-section {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark article.content-section:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Dark Article */
+
+.dark .article-title {
+  color: var(--color-text-heading);
+}
+
+.dark .article-title:hover,
+.dark .article-title:focus {
+  color: #8aadc8;
+}
+
+.dark .article-img {
+  box-shadow:
+    0 0 0 2px var(--color-bg-content);
+}
+
+
+/* Dark Metadata */
+
+.dark .article-metadata {
+  border-color: var(--color-border-light);
+}
+
+
+/* =========================================================
+   Dark Theme Buttons
+   ========================================================= */
+
+.dark .btn-outline-primary {
+  color: #8aadc8;
+  border-color: #8aadc8;
+}
+
+.dark .btn-outline-primary:hover {
+  color: #000000;
+  background-color: #8aadc8;
+  border-color: #9fbdd4;
+}
+
+.dark .btn-outline-primary:active {
+  color: #000000;
+  background-color: #9fbdd4;
+  border-color: #b4cde0;
+}
+
+
+.dark .btn-outline-secondary {
+  color: #b8bfc6;
+  border-color: #8a939b;
+}
+
+.dark .btn-outline-secondary:hover {
+  color: #000000;
+  background-color: #b8bfc6;
+  border-color: #adb5bd;
+}
+
+.dark .btn-outline-secondary:active {
+  color: #000000;
+  background-color: #adb5bd;
+  border-color: #a2aab2;
+}
+
+
+.dark .btn-outline-danger {
+  color: #d89090;
+  border-color: #d89090;
+}
+
+.dark .btn-outline-danger:hover {
+  color: #000000;
+  background-color: #d89090;
+  border-color: #e0a8a8;
+}
+
+.dark .btn-outline-danger:active {
+  color: #000000;
+  background-color: #e0a8a8;
+  border-color: #e8bcbc;
+}
+
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .account-heading {
+    font-size: 2rem;
+  }
+
+  .article-img {
+    width: 3rem;
+    height: 3rem;
+  }
+
+}
