@@ -5,8 +5,8 @@
   <div class="flex items-start gap-4">
     <img
       class="h-16 w-16 shrink-0 rounded-full object-cover"
-      src="{{ url_for('static', path='profile_pics/default.jpg') }}"
-      alt="{{ post.author }}'s profile picture"
+      src="{{ post.author.image_path }}"
+      alt="{{ post.author.username }}'s profile picture"
       width="64"
       height="64"
       loading="lazy"
@@ -16,12 +16,12 @@
       <div class="mb-2 flex items-center gap-2">
         <a
           class="text-sm font-medium text-gray-200 hover:text-blue-600"
-          href="#"
+          href="{{ url_for('user_posts', user_id=post.author.id) }}"
         >
-          {{ post.author }}
+          {{ post.author.username }}
         </a>
 
-        <small class="text-sm text-gray-400"> {{ post.date_posted }} </small>
+        <small class="text-sm text-gray-400"> {{ post.date_posted.strftime("%B %d, %Y") }} </small>
       </div>
 
       <h2 class="mb-2 text-2xl font-semibold text-gray-900">

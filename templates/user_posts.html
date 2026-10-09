@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <!-- Page Title -->
+  <h1 class="mb-6 text-3xl font-bold text-gray-900 dark:text-gray-100">
+    Posts by {{ user.username }}
+  </h1>
+
+  {% for post in posts %}
+    <article
+      class="mb-4 rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-sm
+             dark:border-gray-700 dark:bg-gray-900 dark:shadow-none"
+    >
+      <div class="flex items-start gap-4">
+
+        <!-- Profile Image -->
+        <img
+          class="h-16 w-16 shrink-0 rounded-full object-cover"
+          src="{{ post.author.image_path }}"
+          alt="{{ post.author.username }}'s profile picture"
+          width="64"
+          height="64"
+          loading="lazy"
+        >
+
+        <div class="min-w-0 flex-1">
+
+          <!-- Author & Date -->
+          <div class="mb-2 flex items-center gap-2">
+            <a
+              class="text-sm font-medium text-gray-700 transition-colors
+                     hover:text-blue-600
+                     dark:text-gray-300 dark:hover:text-blue-400"
+              href="{{ url_for('user_posts', user_id=post.author.id) }}"
+            >
+              {{ post.author.username }}
+            </a>
+
+            <small class="text-sm text-gray-500 dark:text-gray-400">
+              {{ post.date_posted.strftime("%B %d, %Y") }}
+            </small>
+          </div>
+
+          <!-- Post Title -->
+          <h2 class="mb-2">
+            <a
+              class="text-2xl font-semibold leading-tight text-gray-900
+                     transition-colors hover:text-blue-600
+                     dark:text-gray-100 dark:hover:text-blue-400"
+              href="{{ url_for('post_page', post_id=post.id) }}"
+            >
+              {{ post.title }}
+            </a>
+          </h2>
+
+          <!-- Post Content -->
+          <p class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+            {{ post.content }}
+          </p>
+
+        </div>
+      </div>
+    </article>
+
+  {% else %}
+
+    <!-- Empty State -->
+    <p class="text-gray-500 dark:text-gray-400">
+      No posts by this user yet.
+    </p>
+
+  {% endfor %}
+
+{% endblock content %}
